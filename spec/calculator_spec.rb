@@ -34,6 +34,34 @@ module SalesTax
           expect(result).to eq @expected_result
         end
       end
+
+      context 'with tax exempt non imported items only' do
+        before(:all) do
+          @product_item_one = ProductItem.new 'Happy Potter 1 Novel',
+                                               12.49, 2, true, false
+          @product_item_two = ProductItem.new 'Cetaphil Lotion',
+                                               9.75, 1, true, false
+          @expected_result =  {
+                                'product_item_1' => { 'name' => 'Happy Potter 1 Novel',
+                                  'price_with_tax' => 24.98,
+                                  'quantity' => 2
+                                },
+                                'product_item_2' => { 'name' => 'Cetaphil Lotion',
+                                  'price_with_tax' => 9.75,
+                                  'quantity' => 1
+                                },
+                                'total_sales_tax' => 0.00,
+                                'total_amount' => 34.73
+                              }
+        end
+
+        it 'returns a hash containing sales tax applied for all items' do
+          result = @calculator.calculate @product_item_one,
+                                         @product_item_two
+          expect(result).to eq @expected_result
+        end
+      end
+
     end
 
   end

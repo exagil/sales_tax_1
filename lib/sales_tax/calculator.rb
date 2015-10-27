@@ -18,7 +18,7 @@ module SalesTax
         }
       end
       result.store 'total_sales_tax', total_sales_tax
-      result.store 'total_amount', total_amount
+      result.store 'total_amount', total_amount.round(2)
       result
     end
 
