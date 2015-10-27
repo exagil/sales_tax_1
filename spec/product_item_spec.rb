@@ -23,8 +23,15 @@ module SalesTax
           p = ProductItem.new('book', 12.00, 2, true, true)
           expect(p.instance_eval "@imported").to eq true
         end
-
       end
     end
+
+    describe '#total_price' do
+      it 'returns the product of price and quantity' do
+        p = ProductItem.new('book', 12.00, 2)
+        expect(p.total_price).to eq(24.00)
+      end
+    end
+
   end
 end
