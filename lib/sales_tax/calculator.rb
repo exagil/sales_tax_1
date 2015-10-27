@@ -6,8 +6,10 @@ module SalesTax
       total_sales_tax = 0
       total_amount = 0
       product_items.each_with_index do |product_item, i|
-        sales_tax = calculate_total_sales_tax_for product_item
-        product_item_price_with_tax = product_item.total_price + sales_tax
+        sales_tax = (calculate_total_sales_tax_for product_item).
+                     ceil_to 2
+        product_item_price_with_tax = (product_item.total_price +
+                                       sales_tax).round 2
         total_sales_tax += sales_tax
         total_amount += product_item_price_with_tax
 

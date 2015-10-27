@@ -62,6 +62,40 @@ module SalesTax
         end
       end
 
+      context 'with test input one' do
+        before(:all) do
+          @product_item_one = ProductItem.new 'book',
+                                               12.49, 1, true, false
+          @product_item_two = ProductItem.new 'music CD',
+                                               14.99, 1, false, false
+          @product_item_three = ProductItem.new 'chocolate bar',
+                                               0.85, 1, true, false
+          @expected_result =  {
+                                'product_item_1' => { 'name' => 'book',
+                                  'price_with_tax' => 12.49,
+                                  'quantity' => 1
+                                },
+                                'product_item_2' => { 'name' => 'music CD',
+                                  'price_with_tax' => 16.49,
+                                  'quantity' => 1
+                                },
+                                'product_item_3' => { 'name' => 'chocolate bar',
+                                  'price_with_tax' => 0.85,
+                                  'quantity' => 1
+                                },
+                                'total_sales_tax' => 1.50,
+                                'total_amount' => 29.83
+                              }
+        end
+        
+        it 'returns the specified result' do
+          result = @calculator.calculate @product_item_one,
+                                         @product_item_two,
+                                         @product_item_three
+          expect(result).to eq @expected_result
+        end
+      end
+
     end
 
   end
