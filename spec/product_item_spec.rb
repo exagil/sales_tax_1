@@ -19,6 +19,11 @@ module SalesTax
           expect(p.instance_eval "@imported").to eq false
         end
 
+        it 'creates a new imported ProductItem if explicitly specified' do
+          p = ProductItem.new('book', 12.00, 2, true, true)
+          expect(p.instance_eval "@imported").to eq true
+        end
+
       end
     end
   end
